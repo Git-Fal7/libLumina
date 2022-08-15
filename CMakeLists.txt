@@ -111,6 +111,9 @@ set(SRCS
     LuminaXDG.cpp
     ResizeMenu.cpp
     XDGMime.cpp
+    
+    # test
+    LuminaOS-template.cpp
 )
 
 set(PUB_HDRS
