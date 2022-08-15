@@ -124,6 +124,8 @@ set(PUB_HDRS
     LuminaSingleApplication.h
     LuminaThemes.h
     LuminaX11.h
+    LuminaXDG.h
+    LuminaOS.h
     LUtils.h
     LVideoLabel.h
     LVideoSurface.h
