@@ -155,6 +155,7 @@ target_link_libraries(
         Qt5::MultimediaWidgets
         Qt5::Svg
         Qt5::Widgets
+        Qt5::Network
         Qt5::X11Extras
         XCB::XCB
         XCB::AUX
