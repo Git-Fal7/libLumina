@@ -1,7 +1,8 @@
-# ibLumina build, CMake edition. EXPERIMENTAL.
+# libLumina build, CMake edition. EXPERIMENTAL.
 #
 # SPDX-License-Identifier: BSD-2-Clause
 # SPDX-FileCopyrightText: Copyright 2022 Adriaan de Groot <adridg@FreeBSD.org>
+
 cmake_minimum_required(VERSION 3.0)
 project(libLumina
 LANGUAGES C CXX
@@ -58,11 +59,11 @@ find_package(
 find_package(X11)
 find_package(
     XCB
-    MODULE
     COMPONENTS
     XCB
     KEYSYMS
     XKB
+    XINPUT
     XFIXES
     AUX
     COMPOSITE
@@ -72,6 +73,7 @@ find_package(
     ICCCM
     IMAGE
     SCREENSAVER
+    RANDR
     OPTIONAL_COMPONENTS XTEST
 )
 
@@ -111,9 +113,9 @@ set(SRCS
     LuminaXDG.cpp
     ResizeMenu.cpp
     XDGMime.cpp
-    
-    # test
-    LuminaOS-template.cpp
+	
+	# Template, you should change it to your own OS
+	LuminaOS-template.cpp
 )
 
 set(PUB_HDRS
@@ -137,11 +139,6 @@ set(PUB_HDRS
     XDGMime.h
 )
 
-#foreach(h ${PUB_HDRS})
-#    get_filename_component(bh ${h} NAME)
-#    configure_file(${h} "${LUMINA_INTREE_INCLUDE_DIR}/${LIBRARY_NAME}/${bh}" COPYONLY)
-#endforeach()
-
 add_library(
     ${LIBRARY_NAME}
     SHARED
@@ -149,10 +146,14 @@ add_library(
     ${SRCS}
 )
 
-target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${LIBRARY_NAME}
+    PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${XCB_INCLUDE_DIR}
+)
+
 target_link_libraries(
     ${LIBRARY_NAME}
-    PUBLIC
         Qt5::Concurrent
         Qt5::Core
         Qt5::MultimediaWidgets
@@ -162,13 +163,20 @@ target_link_libraries(
         Qt5::X11Extras
         XCB::XCB
         XCB::AUX
+        XCB::IMAGE
+        XCB::COMPOSITE
         XCB::DAMAGE
+        XCB::XINPUT
+        XCB::ICCCM
+        XCB::RANDR
+        XCB::EWMH
         XCB::SCREENSAVER
+        XCB::DPMS
         X11::Xdamage
 )
 
 set(target ${LIBRARY_NAME})
-set(pc_req_public "Qt5Core")
+set(pc_req_public "Qt5Core xcb xcb-aux xcb-damage xcb-screensaver x11")
 
 configure_file(lumina.pc.in lumina.pc @ONLY)
 
