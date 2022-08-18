@@ -176,7 +176,7 @@ target_link_libraries(
 )
 
 set(target ${LIBRARY_NAME})
-set(pc_req_public "Qt5Core xcb xcb-aux xcb-damage xcb-screensaver x11")
+set(pc_req_public "Qt5Core Qt5Network xcb xcb-aux xcb-damage xcb-screensaver x11")
 
 configure_file(lumina.pc.in lumina.pc @ONLY)
 
