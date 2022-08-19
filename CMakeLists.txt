@@ -85,8 +85,8 @@ endif()
 #
 # This ignores the actual OS and just sets FreeBSD-useful values
 add_definitions(
-    -DL_ETCDIR=QStringLiteral\("${CMAKE_INSTALL_PREFIX}/etc"\)
-    -DL_SHAREDIR=QStringLiteral\("${CMAKE_INSTALL_DATADIR}"\)
+    -DL_ETCDIR=QStringLiteral\("/etc"\)
+    -DL_SHAREDIR=QStringLiteral\("${CMAKE_INSTALL_PREFIX}/share"\)
 )
 
 # Build options
